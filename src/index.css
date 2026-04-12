@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  /* 主题色 */
+  --color-primary: #4F6EF7;
+  --color-primary-light: #EEF2FF;
+  --color-expense: #FF6B6B;
+  --color-income: #10B981;
+  --color-card-bg: #FAFBFF;
+  --color-text-main: #1D1D1F;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-divider: #F0F0F0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  color: var(--color-text-main);
+  background: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
