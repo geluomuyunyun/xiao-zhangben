@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useStore, type BillRecord } from '../store/useStore';
 import type { Category } from '../constants/categories';
 import NumberPad from './NumberPad';
-import { formatAmount } from '../utils/format';
 import dayjs from 'dayjs';
 
 interface Props {

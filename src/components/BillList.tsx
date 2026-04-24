@@ -34,7 +34,7 @@ export default function BillList({ records, categories, onClickRecord }: Props) 
   }
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 pt-3 pb-20">
+    <div className="flex-1 overflow-y-auto px-4 pt-3 pb-24">
       {Array.from(grouped.entries()).map(([date, dayRecords]) => {
         const dayExpense = dayRecords.filter((r) => r.type === 'expense').reduce((s, r) => s + r.amount, 0);
         const dayIncome = dayRecords.filter((r) => r.type === 'income').reduce((s, r) => s + r.amount, 0);

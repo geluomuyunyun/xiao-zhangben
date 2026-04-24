@@ -15,7 +15,7 @@ export default function MonthSummaryCard({
   const balance = totalIncome - totalExpense;
 
   return (
-    <div className="mx-4 mt-4 rounded-2xl px-5 py-4" style={{ background: 'var(--color-primary)' }}>
+    <div className="mx-4 mt-3 rounded-2xl px-4 py-4" style={{ background: 'var(--color-primary)' }}>
       <div className="flex items-center justify-between mb-3">
         <button onClick={onPrevMonth} className="text-white/70 text-lg bg-transparent border-none cursor-pointer px-2">
           ‹

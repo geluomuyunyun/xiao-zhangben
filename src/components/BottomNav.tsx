@@ -14,7 +14,7 @@ export default function BottomNav() {
   return (
     <nav
       className="shrink-0 flex items-start pt-2 border-t"
-      style={{ height: 80, borderColor: 'var(--color-divider)', background: '#fff' }}
+      style={{ height: 64, borderColor: 'var(--color-divider)', background: '#fff' }}
     >
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.key;
