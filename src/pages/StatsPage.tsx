@@ -81,17 +81,17 @@ export default function StatsPage() {
       <div className="flex items-center justify-center gap-4 pt-4 pb-2">
         <button
           onClick={handlePrevMonth}
-          className="text-lg bg-transparent border-none cursor-pointer px-2"
+          className="text-2xl bg-transparent border-none cursor-pointer px-3 py-1"
           style={{ color: 'var(--color-text-tertiary)' }}
         >
           ‹
         </button>
-        <span className="font-semibold text-base" style={{ color: 'var(--color-text-main)' }}>
+        <span className="font-semibold text-lg" style={{ color: 'var(--color-text-main)' }}>
           {yearMonth.year}年{yearMonth.month}月
         </span>
         <button
           onClick={handleNextMonth}
-          className="text-lg bg-transparent border-none cursor-pointer px-2"
+          className="text-2xl bg-transparent border-none cursor-pointer px-3 py-1"
           style={{ color: 'var(--color-text-tertiary)' }}
         >
           ›
@@ -99,8 +99,8 @@ export default function StatsPage() {
       </div>
 
       {/* 支出/收入 Tab */}
-      <div className="flex justify-center mb-1">
-        <div className="inline-flex rounded-full p-1" style={{ background: 'var(--color-divider)' }}>
+      <div className="flex px-4 mb-1">
+        <div className="flex w-full rounded-full p-1" style={{ background: 'var(--color-divider)' }}>
           {(['expense', 'income'] as const).map((t) => {
             const active = activeType === t;
             const label = t === 'expense' ? '支出' : '收入';
@@ -109,7 +109,7 @@ export default function StatsPage() {
               <button
                 key={t}
                 onClick={() => setActiveType(t)}
-                className="text-sm font-medium px-6 py-1.5 rounded-full border-none cursor-pointer transition-all duration-200"
+                className="flex-1 text-base font-medium py-2 rounded-full border-none cursor-pointer transition-all duration-200"
                 style={{
                   background: active ? '#FFFFFF' : 'transparent',
                   color: active ? activeColor : 'var(--color-text-tertiary)',

@@ -17,11 +17,11 @@ export default function MonthSummaryCard({
   return (
     <div className="mx-4 mt-3 rounded-2xl px-4 py-4" style={{ background: 'var(--color-primary)' }}>
       <div className="flex items-center justify-between mb-3">
-        <button onClick={onPrevMonth} className="text-white/70 text-lg bg-transparent border-none cursor-pointer px-2">
+        <button onClick={onPrevMonth} className="text-white/70 text-2xl bg-transparent border-none cursor-pointer px-3 py-1">
           ‹
         </button>
-        <span className="text-white font-semibold text-base">{year}年{month}月</span>
-        <button onClick={onNextMonth} className="text-white/70 text-lg bg-transparent border-none cursor-pointer px-2">
+        <span className="text-white font-semibold text-lg">{year}年{month}月</span>
+        <button onClick={onNextMonth} className="text-white/70 text-2xl bg-transparent border-none cursor-pointer px-3 py-1">
           ›
         </button>
       </div>
