@@ -15,15 +15,9 @@ export default function MonthSummaryCard({
   const balance = totalIncome - totalExpense;
 
   return (
-    <div className="mx-4 mt-3 rounded-2xl px-4 py-4" style={{ background: 'var(--color-primary)' }}>
-      <div className="flex items-center justify-between mb-3">
-        <button onClick={onPrevMonth} className="text-white/70 text-2xl bg-transparent border-none cursor-pointer px-3 py-1">
-          ‹
-        </button>
+    <div className="mx-4 mt-3 rounded-2xl px-4 py-4 relative" style={{ background: 'var(--color-primary)' }}>
+      <div className="flex items-center justify-center h-8 mb-3">
         <span className="text-white font-semibold text-lg">{year}年{month}月</span>
-        <button onClick={onNextMonth} className="text-white/70 text-2xl bg-transparent border-none cursor-pointer px-3 py-1">
-          ›
-        </button>
       </div>
 
       <div className="flex justify-between text-white">
@@ -40,6 +34,32 @@ export default function MonthSummaryCard({
           <div className="text-lg font-bold">{balance >= 0 ? '' : '-'}{formatAmount(Math.abs(balance))}</div>
         </div>
       </div>
+
+      <button
+        onClick={onPrevMonth}
+        className="absolute left-0 top-0 bottom-0 bg-transparent border-none cursor-pointer rounded-l-2xl active:bg-white/10 transition-colors"
+        style={{ width: 48 }}
+      >
+        <div className="flex flex-col h-full pt-4">
+          <div className="h-8 mb-3" />
+          <div className="flex items-center justify-center" style={{ height: 16 }}>
+            <span className="text-white/70" style={{ fontSize: 33.6, lineHeight: 1 }}>‹</span>
+          </div>
+        </div>
+      </button>
+
+      <button
+        onClick={onNextMonth}
+        className="absolute right-0 top-0 bottom-0 bg-transparent border-none cursor-pointer rounded-r-2xl active:bg-white/10 transition-colors"
+        style={{ width: 48 }}
+      >
+        <div className="flex flex-col h-full pt-4">
+          <div className="h-8 mb-3" />
+          <div className="flex items-center justify-center" style={{ height: 16 }}>
+            <span className="text-white/70" style={{ fontSize: 33.6, lineHeight: 1 }}>›</span>
+          </div>
+        </div>
+      </button>
     </div>
   );
 }

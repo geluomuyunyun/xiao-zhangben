@@ -160,8 +160,8 @@ export default function CategoryPage() {
   );
 
   return (
-    <div className="flex-1 flex flex-col pb-4 overflow-y-auto">
-      <div className="flex px-4 pt-4 pb-2">
+    <div className="flex-1 flex flex-col pb-4 overflow-y-auto gap-5">
+      <div className="flex px-4 pt-4">
         <div className="flex w-full rounded-full p-1" style={{ background: 'var(--color-divider)' }}>
           {(['expense', 'income'] as const).map((t) => {
             const active = activeType === t;
@@ -181,8 +181,8 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      <div className="px-4 pt-2">
-        <div className="grid grid-cols-4 gap-3">
+      <div className="px-4">
+        <div className="grid grid-cols-4 gap-5">
           {filtered.map((cat: Category) => (
             <button
               key={cat.id}
@@ -252,31 +252,30 @@ export default function CategoryPage() {
         <div className="fixed inset-0 z-[60] flex items-center justify-center">
           <div
             className="absolute inset-0 transition-opacity duration-300"
-            style={{ background: 'rgba(0,0,0,0.4)', opacity: confirmAnimateIn ? 1 : 0 }}
+            style={{ background: 'rgba(0,0,0,0.5)', opacity: confirmAnimateIn ? 1 : 0 }}
             onClick={() => setConfirmDeleteTarget(null)}
           />
           <div
-            className="relative bg-white rounded-2xl w-[280px] overflow-hidden transition-all duration-300"
+            className="relative bg-white rounded-2xl px-6 py-5 mx-8 w-full max-w-xs text-center transition-all duration-300"
             style={{
               opacity: confirmAnimateIn ? 1 : 0,
               transform: confirmAnimateIn ? 'scale(1)' : 'scale(0.9)',
             }}
           >
-            <div className="px-6 pt-6 pb-4 text-center">
-              <div className="text-base font-semibold mb-2" style={{ color: 'var(--color-text-main)' }}>删除分类</div>
-              <div className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>确定要删除"{displayDeleteTarget.name}"分类吗？</div>
-            </div>
-            <div className="flex border-t" style={{ borderColor: 'var(--color-divider)' }}>
+            <p className="text-base mb-5" style={{ color: 'var(--color-text-main)' }}>
+              确定要删除"{displayDeleteTarget.name}"分类吗？
+            </p>
+            <div className="flex gap-3">
               <button
                 onClick={() => setConfirmDeleteTarget(null)}
-                className="flex-1 py-3 text-sm font-medium bg-transparent border-none cursor-pointer border-r"
-                style={{ color: 'var(--color-text-secondary)', borderColor: 'var(--color-divider)' }}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium border-none cursor-pointer"
+                style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
               >取消</button>
               <button
                 onClick={handleConfirmDelete}
-                className="flex-1 py-3 text-sm font-semibold bg-transparent border-none cursor-pointer"
-                style={{ color: 'var(--color-expense)' }}
-              >删除</button>
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white border-none cursor-pointer"
+                style={{ background: 'var(--color-expense)' }}
+              >确认删除</button>
             </div>
           </div>
         </div>

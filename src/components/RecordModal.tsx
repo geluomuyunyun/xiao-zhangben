@@ -20,6 +20,7 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
   const [date, setDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [showDelete, setShowDelete] = useState(false);
 
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [rendered, setRendered] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
 
@@ -70,8 +71,13 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
 
   const handleDelete = () => {
     if (!editRecord) return;
-    if (window.confirm('确定要删除这条记录吗？')) {
-      deleteRecord(editRecord.id);
+    setPendingDeleteId(editRecord.id);
+  };
+
+  const confirmDelete = () => {
+    if (pendingDeleteId) {
+      deleteRecord(pendingDeleteId);
+      setPendingDeleteId(null);
       onClose();
     }
   };
@@ -195,6 +201,37 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
           onConfirm={handleConfirm}
         />
       </div>
+
+      {pendingDeleteId && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center">
+          <div
+            className="absolute inset-0"
+            style={{ background: 'rgba(0,0,0,0.5)' }}
+            onClick={() => setPendingDeleteId(null)}
+          />
+          <div className="relative bg-white rounded-2xl px-6 py-5 mx-8 w-full max-w-xs text-center">
+            <p className="text-base mb-5" style={{ color: 'var(--color-text-main)' }}>
+              确定要删除这条记录吗？
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setPendingDeleteId(null)}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium border-none cursor-pointer"
+                style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
+              >
+                取消
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white border-none cursor-pointer"
+                style={{ background: 'var(--color-expense)' }}
+              >
+                确认删除
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

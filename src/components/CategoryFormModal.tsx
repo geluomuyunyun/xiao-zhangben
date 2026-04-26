@@ -95,10 +95,10 @@ export default function CategoryFormModal({ visible, onClose, onSave, initialDat
         className="relative bg-white rounded-t-2xl transition-transform duration-300 ease-out"
         style={{ transform: animateIn ? 'translateY(0)' : 'translateY(100%)' }}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: 'var(--color-divider)' }}>
-          <button onClick={onClose} className="text-sm bg-transparent border-none cursor-pointer" style={{ color: 'var(--color-text-secondary)' }}>取消</button>
-          <span className="font-semibold text-sm" style={{ color: 'var(--color-text-main)' }}>{title}</span>
-          <button onClick={handleSave} className="text-sm font-semibold bg-transparent border-none cursor-pointer" style={{ color: canSave ? 'var(--color-primary)' : 'var(--color-text-tertiary)' }}>保存</button>
+        <div className="flex items-center justify-between px-4 py-2 border-b gap-4 flex-nowrap" style={{ borderColor: 'var(--color-divider)' }}>
+          <button onClick={onClose} className="h-9 px-3 text-sm bg-transparent border-none cursor-pointer flex items-center" style={{ color: 'var(--color-text-secondary)' }}>取消</button>
+          <span className="h-9 flex items-center font-semibold text-sm flex-shrink-0" style={{ color: 'var(--color-text-main)' }}>{title}</span>
+          <button onClick={handleSave} className="h-9 px-3 text-sm font-semibold bg-transparent border-none cursor-pointer flex items-center" style={{ color: canSave ? 'var(--color-primary)' : 'var(--color-text-tertiary)' }}>保存</button>
         </div>
         <div className="flex items-center gap-3 px-4 py-4">
           <span className="w-12 h-12 flex items-center justify-center rounded-2xl text-2xl" style={{ background: color + '20' }}>{icon}</span>
@@ -112,7 +112,7 @@ export default function CategoryFormModal({ visible, onClose, onSave, initialDat
             maxLength={10}
           />
         </div>
-        <div className="px-4 pb-3">
+        <div className="px-4 pt-2 pb-3">
           <div className="text-xs font-medium mb-2" style={{ color: 'var(--color-text-secondary)' }}>选择图标</div>
           <div className="grid grid-cols-8 gap-1.5">
             {ICON_OPTIONS.map((emoji) => (
@@ -128,7 +128,7 @@ export default function CategoryFormModal({ visible, onClose, onSave, initialDat
             ))}
           </div>
         </div>
-        <div className="px-4 pb-6">
+        <div className="px-4 pt-3 pb-6">
           <div className="text-xs font-medium mb-2" style={{ color: 'var(--color-text-secondary)' }}>选择颜色</div>
           <div className="grid grid-cols-6 gap-3 justify-items-center">
             {COLOR_OPTIONS.map((c) => (
