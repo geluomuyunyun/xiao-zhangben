@@ -97,11 +97,11 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
         style={{ transform: animateIn ? 'translateY(0)' : 'translateY(100%)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: 'var(--color-divider)' }}>
-          <button onClick={onClose} className="text-sm bg-transparent border-none cursor-pointer" style={{ color: 'var(--color-text-secondary)' }}>
+        <div className="flex items-center justify-between px-4 py-2 border-b gap-4 flex-nowrap" style={{ borderColor: 'var(--color-divider)' }}>
+          <button onClick={onClose} className="h-9 px-3 text-sm bg-transparent border-none cursor-pointer flex items-center" style={{ color: 'var(--color-text-secondary)' }}>
             取消
           </button>
-          <div className="flex gap-4">
+          <div className="h-9 flex items-center gap-4">
             <button
               onClick={() => { setType('expense'); setCategoryId(''); }}
               className="text-sm font-semibold bg-transparent border-none cursor-pointer pb-1"
@@ -124,11 +124,11 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
             </button>
           </div>
           {showDelete ? (
-            <button onClick={handleDelete} className="text-sm bg-transparent border-none cursor-pointer" style={{ color: 'var(--color-expense)' }}>
+            <button onClick={handleDelete} className="h-9 px-3 text-sm bg-transparent border-none cursor-pointer flex items-center" style={{ color: 'var(--color-expense)' }}>
               删除
             </button>
           ) : (
-            <span className="text-sm invisible">占位</span>
+            <span className="h-9 px-3 text-sm invisible flex items-center">占位</span>
           )}
         </div>
 
@@ -164,7 +164,7 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
         </div>
 
         {/* Note + Date row */}
-        <div className="flex items-center gap-2 px-4 py-2 border-t" style={{ borderColor: 'var(--color-divider)' }}>
+        <div className="flex items-center gap-2 px-4 h-9 border-t" style={{ borderColor: 'var(--color-divider)' }}>
           <input
             id="record-note"
             name="record-note"
@@ -186,17 +186,6 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
             style={{ color: 'var(--color-text-secondary)' }}
           />
         </div>
-
-        {/* Validation hint */}
-        {(amount === 0 || !categoryId) && (
-          <div className="px-4 pb-1 text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
-            {amount === 0 && !categoryId
-              ? '请输入金额并选择分类'
-              : amount === 0
-                ? '请输入金额'
-                : '请选择分类'}
-          </div>
-        )}
 
         {/* Number pad */}
         <NumberPad
