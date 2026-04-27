@@ -103,6 +103,8 @@ export default function CategoryFormModal({ visible, onClose, onSave, initialDat
         <div className="flex items-center gap-3 px-4 py-4">
           <span className="w-12 h-12 flex items-center justify-center rounded-2xl text-2xl" style={{ background: color + '20' }}>{icon}</span>
           <input
+            id="category-name"
+            name="category-name"
             type="text"
             placeholder="输入分类名称"
             value={name}

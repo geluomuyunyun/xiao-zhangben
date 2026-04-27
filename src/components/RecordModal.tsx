@@ -166,6 +166,8 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
         {/* Note + Date row */}
         <div className="flex items-center gap-2 px-4 py-2 border-t" style={{ borderColor: 'var(--color-divider)' }}>
           <input
+            id="record-note"
+            name="record-note"
             type="text"
             placeholder="添加备注..."
             value={note}
@@ -175,6 +177,8 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
             maxLength={50}
           />
           <input
+            id="record-date"
+            name="record-date"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
