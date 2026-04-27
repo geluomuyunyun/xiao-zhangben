@@ -12,8 +12,9 @@ interface Props {
 export default function BillList({ records, categories, onClickRecord }: Props) {
   if (records.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <span className="text-sm" style={{ color: 'var(--color-text-tertiary)' }}>暂无账单记录</span>
+      <div className="flex-1 flex flex-col items-center justify-center gap-2">
+        <span className="text-4xl">📝</span>
+        <span className="text-sm" style={{ color: 'var(--color-text-tertiary)' }}>还没有记录，点击 + 记第一笔吧</span>
       </div>
     );
   }

@@ -216,26 +216,31 @@ export default function CategoryPage() {
             onClick={closeSheet}
           />
           <div
-            className="relative bg-white rounded-t-2xl transition-transform duration-300 ease-out"
+            className="relative px-3 pb-5 pt-0 flex flex-col gap-2 transition-transform duration-300 ease-out"
             style={{ transform: sheetAnimateIn ? 'translateY(0)' : 'translateY(100%)' }}
           >
-            <div className="flex items-center gap-2.5 px-4 py-3 border-b" style={{ borderColor: 'var(--color-divider)' }}>
-              <span className="w-9 h-9 flex items-center justify-center rounded-xl text-lg" style={{ background: displayTarget.color + '20' }}>{displayTarget.icon}</span>
-              <span className="font-semibold text-sm" style={{ color: 'var(--color-text-main)' }}>{displayTarget.name}</span>
+            <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--color-card-bg)' }}>
+              <div className="flex items-center gap-3 px-4 py-4 border-b" style={{ borderColor: 'var(--color-divider)' }}>
+                <span className="w-10 h-10 flex items-center justify-center rounded-xl text-xl" style={{ background: displayTarget.color + '20' }}>{displayTarget.icon}</span>
+                <span className="font-semibold text-base" style={{ color: 'var(--color-text-main)' }}>{displayTarget.name}</span>
+              </div>
+              {!displayTarget.isPreset && (
+                <button onClick={handleEdit} className="w-full text-center px-4 py-6 bg-transparent border-none border-b cursor-pointer text-lg" style={{ color: 'var(--color-text-main)', borderColor: 'var(--color-divider)' }}>编辑</button>
+              )}
+              <button
+                onClick={handleToggleHidden}
+                className={`w-full text-center px-4 py-6 bg-transparent border-none cursor-pointer text-lg ${!displayTarget.isPreset ? 'border-b' : ''}`}
+                style={{ color: 'var(--color-text-main)', borderColor: 'var(--color-divider)' }}
+              >{displayTarget.isHidden ? '取消隐藏' : '隐藏'}</button>
+              {!displayTarget.isPreset && (
+                <button onClick={handleDeleteCat} className="w-full text-center px-4 py-6 bg-transparent border-none cursor-pointer text-lg" style={{ color: 'var(--color-expense)' }}>删除</button>
+              )}
             </div>
-            {!displayTarget.isPreset && (
-              <button onClick={handleEdit} className="w-full text-left px-4 py-3.5 bg-transparent border-none border-b cursor-pointer text-sm" style={{ color: 'var(--color-text-main)', borderColor: 'var(--color-divider)' }}>编辑</button>
-            )}
             <button
-              onClick={handleToggleHidden}
-              className={`w-full text-left px-4 py-3.5 bg-transparent border-none cursor-pointer text-sm ${!displayTarget.isPreset ? 'border-b' : ''}`}
-              style={{ color: 'var(--color-text-main)', borderColor: 'var(--color-divider)' }}
-            >{displayTarget.isHidden ? '取消隐藏' : '隐藏'}</button>
-            {!displayTarget.isPreset && (
-              <button onClick={handleDeleteCat} className="w-full text-left px-4 py-3.5 bg-transparent border-none cursor-pointer text-sm" style={{ color: 'var(--color-expense)' }}>删除</button>
-            )}
-            <div className="h-2" style={{ background: 'var(--color-divider)' }} />
-            <button onClick={closeSheet} className="w-full text-center px-4 py-3.5 bg-transparent border-none cursor-pointer text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>取消</button>
+              onClick={closeSheet}
+              className="w-full text-center px-4 py-6 rounded-2xl border-none cursor-pointer text-lg font-semibold"
+              style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
+            >取消</button>
           </div>
         </div>
       )}
@@ -256,24 +261,24 @@ export default function CategoryPage() {
             onClick={() => setConfirmDeleteTarget(null)}
           />
           <div
-            className="relative bg-white rounded-2xl px-6 py-5 mx-8 w-full max-w-xs text-center transition-all duration-300"
+            className="relative bg-white rounded-3xl px-8 pt-14 pb-8 mx-5 w-full max-w-sm flex flex-col items-center transition-all duration-300"
             style={{
               opacity: confirmAnimateIn ? 1 : 0,
               transform: confirmAnimateIn ? 'scale(1)' : 'scale(0.9)',
             }}
           >
-            <p className="text-base mb-5" style={{ color: 'var(--color-text-main)' }}>
+            <p className="text-xl font-medium flex-1 flex items-center" style={{ color: 'var(--color-text-main)' }}>
               确定要删除"{displayDeleteTarget.name}"分类吗？
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4 w-full mt-14">
               <button
                 onClick={() => setConfirmDeleteTarget(null)}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium border-none cursor-pointer"
+                className="flex-1 py-5 rounded-2xl text-base font-semibold border-none cursor-pointer"
                 style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
               >取消</button>
               <button
                 onClick={handleConfirmDelete}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white border-none cursor-pointer"
+                className="flex-1 py-5 rounded-2xl text-base font-semibold text-white border-none cursor-pointer"
                 style={{ background: 'var(--color-expense)' }}
               >确认删除</button>
             </div>

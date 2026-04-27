@@ -8,7 +8,7 @@ import MePage from './pages/MePage';
 export default function App() {
   return (
     <HashRouter>
-      <div className="flex flex-col" style={{ minHeight: '100dvh' }}>
+      <div className="flex flex-col overflow-x-hidden" style={{ minHeight: '100dvh' }}>
         <Routes>
           <Route path="/bills" element={<BillsPage />} />
           <Route path="/stats" element={<StatsPage />} />

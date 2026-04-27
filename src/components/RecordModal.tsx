@@ -23,6 +23,8 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [rendered, setRendered] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
+  const [shakeAmount, setShakeAmount] = useState(false);
+  const [shakeCategory, setShakeCategory] = useState(false);
 
   useEffect(() => {
     if (visible) {
@@ -58,8 +60,15 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
   const amount = parseFloat(amountStr) || 0;
 
   const handleConfirm = () => {
-    if (amount === 0) return;
-    if (!categoryId) return;
+    if (amount === 0) {
+      setShakeAmount(true);
+      setTimeout(() => setShakeAmount(false), 600);
+    }
+    if (!categoryId) {
+      setShakeCategory(true);
+      setTimeout(() => setShakeCategory(false), 600);
+    }
+    if (amount === 0 || !categoryId) return;
 
     if (editRecord) {
       updateRecord(editRecord.id, { type, categoryId, amount, note, date });
@@ -133,15 +142,18 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
         </div>
 
         {/* Amount display */}
-        <div className="px-4 py-3 text-right">
-          <span className="text-sm mr-1" style={{ color: 'var(--color-text-tertiary)' }}>¥</span>
-          <span className="text-3xl font-bold" style={{ color: 'var(--color-text-main)' }}>
+        <div className={`px-4 py-3 text-right${shakeAmount ? ' shake' : ''}`}>
+          <span className="text-sm mr-1" style={{ color: shakeAmount ? 'var(--color-expense)' : 'var(--color-text-tertiary)' }}>¥</span>
+          <span className="text-3xl font-bold" style={{ color: shakeAmount ? 'var(--color-expense)' : 'var(--color-text-main)' }}>
             {amountStr || '0'}
           </span>
         </div>
 
         {/* Category grid */}
-        <div className="px-4 pb-2">
+        <div className={`px-4 pb-2${shakeCategory ? ' shake' : ''}`}>
+          {shakeCategory && (
+            <div className="text-xs mb-1" style={{ color: 'var(--color-expense)' }}>请选择分类</div>
+          )}
           <div className="grid grid-cols-5 gap-2">
             {filteredCategories.map((cat: Category) => {
               const selected = categoryId === cat.id;
@@ -202,21 +214,21 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
             style={{ background: 'rgba(0,0,0,0.5)' }}
             onClick={() => setPendingDeleteId(null)}
           />
-          <div className="relative bg-white rounded-2xl px-6 py-5 mx-8 w-full max-w-xs text-center">
-            <p className="text-base mb-5" style={{ color: 'var(--color-text-main)' }}>
+          <div className="relative bg-white rounded-3xl px-8 pt-14 pb-8 mx-5 w-full max-w-sm flex flex-col items-center">
+            <p className="text-xl font-medium flex-1 flex items-center" style={{ color: 'var(--color-text-main)' }}>
               确定要删除这条记录吗？
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4 w-full mt-14">
               <button
                 onClick={() => setPendingDeleteId(null)}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium border-none cursor-pointer"
+                className="flex-1 py-5 rounded-2xl text-base font-semibold border-none cursor-pointer"
                 style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
               >
                 取消
               </button>
               <button
                 onClick={confirmDelete}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium text-white border-none cursor-pointer"
+                className="flex-1 py-5 rounded-2xl text-base font-semibold text-white border-none cursor-pointer"
                 style={{ background: 'var(--color-expense)' }}
               >
                 确认删除
