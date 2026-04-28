@@ -73,11 +73,11 @@ export default function MonthlyBarChart({ allRecords, year, month }: Props) {
               tickFormatter={(v: number) => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : String(v)}
             />
             <Tooltip
-              formatter={(value: number, name: string) => [
-                `¥${value.toFixed(2)}`,
+              formatter={((value: any, name: any) => [
+                `¥${Number(value ?? 0).toFixed(2)}`,
                 name === 'expense' ? '支出' : '收入',
-              ]}
-              labelFormatter={(label: string) => label}
+              ]) as any}
+              labelFormatter={((label: any) => String(label)) as any}
               contentStyle={{ fontSize: 12, borderRadius: 8 }}
             />
             <Bar dataKey="expense" fill="var(--color-expense)" radius={[4, 4, 0, 0]} maxBarSize={20} />
