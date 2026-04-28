@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStore, type BillRecord } from '../store/useStore';
 import type { Category } from '../constants/categories';
 import NumberPad from './NumberPad';
+import ConfirmDialog from './ConfirmDialog';
 import dayjs from 'dayjs';
 
 interface Props {
@@ -207,36 +208,13 @@ export default function RecordModal({ visible, onClose, editRecord }: Props) {
         />
       </div>
 
-      {pendingDeleteId && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center">
-          <div
-            className="absolute inset-0"
-            style={{ background: 'rgba(0,0,0,0.5)' }}
-            onClick={() => setPendingDeleteId(null)}
-          />
-          <div className="relative bg-white rounded-3xl px-8 pt-14 pb-8 mx-5 w-full max-w-sm flex flex-col items-center">
-            <p className="text-xl font-medium flex-1 flex items-center" style={{ color: 'var(--color-text-main)' }}>
-              确定要删除这条记录吗？
-            </p>
-            <div className="flex gap-4 w-full mt-14">
-              <button
-                onClick={() => setPendingDeleteId(null)}
-                className="flex-1 py-5 rounded-2xl text-base font-semibold border-none cursor-pointer"
-                style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
-              >
-                取消
-              </button>
-              <button
-                onClick={confirmDelete}
-                className="flex-1 py-5 rounded-2xl text-base font-semibold text-white border-none cursor-pointer"
-                style={{ background: 'var(--color-expense)' }}
-              >
-                确认删除
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmDialog
+        visible={pendingDeleteId !== null}
+        message="确定要删除这条记录吗？"
+        hint="删除后无法恢复"
+        onCancel={() => setPendingDeleteId(null)}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 }

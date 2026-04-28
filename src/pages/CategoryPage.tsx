@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import type { Category } from '../constants/categories';
 import CategoryFormModal from '../components/CategoryFormModal';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 export default function CategoryPage() {
   const { categories, addCategory, updateCategory, toggleCategoryHidden, deleteCategory } = useStore();
@@ -25,10 +26,6 @@ export default function CategoryPage() {
   const lastDeleteTargetRef = useRef<Category | null>(null);
   if (confirmDeleteTarget) lastDeleteTargetRef.current = confirmDeleteTarget;
   const displayDeleteTarget = confirmDeleteTarget ?? lastDeleteTargetRef.current;
-  const [confirmRendered, setConfirmRendered] = useState(false);
-  const [confirmAnimateIn, setConfirmAnimateIn] = useState(false);
-  const confirmTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const confirmRafRef = useRef(0);
 
   const sheetVisible = actionTarget !== null;
 
@@ -66,41 +63,6 @@ export default function CategoryPage() {
     };
   }, []);
 
-  const confirmVisible = confirmDeleteTarget !== null;
-
-  useEffect(() => {
-    if (confirmVisible) {
-      if (confirmTimerRef.current !== null) {
-        clearTimeout(confirmTimerRef.current);
-        confirmTimerRef.current = null;
-      }
-      cancelAnimationFrame(confirmRafRef.current);
-      setConfirmRendered(true);
-      setConfirmAnimateIn(false);
-      confirmRafRef.current = requestAnimationFrame(() => {
-        confirmRafRef.current = requestAnimationFrame(() => {
-          setConfirmAnimateIn(true);
-        });
-      });
-    } else {
-      cancelAnimationFrame(confirmRafRef.current);
-      if (confirmTimerRef.current !== null) {
-        clearTimeout(confirmTimerRef.current);
-      }
-      setConfirmAnimateIn(false);
-      confirmTimerRef.current = setTimeout(() => {
-        setConfirmRendered(false);
-        confirmTimerRef.current = null;
-      }, 300);
-    }
-  }, [confirmVisible]);
-
-  useEffect(() => {
-    return () => {
-      if (confirmTimerRef.current !== null) clearTimeout(confirmTimerRef.current);
-      cancelAnimationFrame(confirmRafRef.current);
-    };
-  }, []);
 
   const filtered = categories
     .filter((c: Category) => c.type === activeType)
@@ -253,38 +215,13 @@ export default function CategoryPage() {
         title={formMode === 'edit' ? '编辑分类' : '添加分类'}
       />
 
-      {confirmRendered && displayDeleteTarget && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center">
-          <div
-            className="absolute inset-0 transition-opacity duration-300"
-            style={{ background: 'rgba(0,0,0,0.5)', opacity: confirmAnimateIn ? 1 : 0 }}
-            onClick={() => setConfirmDeleteTarget(null)}
-          />
-          <div
-            className="relative bg-white rounded-3xl px-8 pt-14 pb-8 mx-5 w-full max-w-sm flex flex-col items-center transition-all duration-300"
-            style={{
-              opacity: confirmAnimateIn ? 1 : 0,
-              transform: confirmAnimateIn ? 'scale(1)' : 'scale(0.9)',
-            }}
-          >
-            <p className="text-xl font-medium flex-1 flex items-center" style={{ color: 'var(--color-text-main)' }}>
-              确定要删除"{displayDeleteTarget.name}"分类吗？
-            </p>
-            <div className="flex gap-4 w-full mt-14">
-              <button
-                onClick={() => setConfirmDeleteTarget(null)}
-                className="flex-1 py-5 rounded-2xl text-base font-semibold border-none cursor-pointer"
-                style={{ background: 'var(--color-card-bg)', color: 'var(--color-text-secondary)' }}
-              >取消</button>
-              <button
-                onClick={handleConfirmDelete}
-                className="flex-1 py-5 rounded-2xl text-base font-semibold text-white border-none cursor-pointer"
-                style={{ background: 'var(--color-expense)' }}
-              >确认删除</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmDialog
+        visible={confirmDeleteTarget !== null}
+        message={displayDeleteTarget ? `确定要删除"${displayDeleteTarget.name}"分类吗？` : ''}
+        hint="删除后无法恢复"
+        onCancel={() => setConfirmDeleteTarget(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }
